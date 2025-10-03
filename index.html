@@ -9,43 +9,28 @@
     :root{color-scheme:dark;}
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:#0b0a09;color:#f5f5f4}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial,sans-serif;background:#0c0a09;color:#f5f5f4}
     .wrap{min-height:100%;display:grid;place-items:center;padding:24px}
 
-    /* SCENE */
+    /* Parchment backdrop */
     .scene{position:relative;width:min(1100px,95vw);height:min(680px,90vh);background:radial-gradient(1200px_600px at 50% 30%, #4d3a29 0%, #2d221a 55%, #16120e 100%);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.6), inset 0 0 120px rgba(0,0,0,.35);overflow:hidden}
+
+    /* Decorative vignette */
     .scene:after{content:"";pointer-events:none;position:absolute;inset:0;border-radius:24px;box-shadow:inset 0 0 220px rgba(0,0,0,.7)}
 
-    /* INTRO: Map Unfold Animation */
-    .intro{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(#2a2119,#0d0b09);z-index:30}
-    .introInner{position:relative;width:min(980px,92vw);height:min(620px,82vh)}
-    .sheet{position:absolute;inset:0;border-radius:20px;background:radial-gradient(900px_520px at 50% 40%, #7b5a39 0%, #5a432d 50%, #3a2d22 100%);box-shadow:inset 0 0 140px rgba(0,0,0,.45), 0 30px 80px rgba(0,0,0,.6);transform-origin:center;animation:unfold 1200ms cubic-bezier(.2,.8,.2,1) 200ms forwards;filter:saturate(1.05)}
-    .edge{position:absolute;top:0;bottom:0;width:90px;background:linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0));opacity:.55}
-    .edge.left{left:0;mask-image:linear-gradient(90deg, #000 60%, transparent)}
-    .edge.right{right:0;transform:scaleX(-1);mask-image:linear-gradient(90deg, #000 60%, transparent)}
-    .roll{position:absolute;top:10px;bottom:10px;width:40px;border-radius:999px;background:radial-gradient(circle at 30% 50%, #caa66a, #9c743c 60%, #6d4c25 100%);box-shadow:inset -6px 0 0 rgba(0,0,0,.25), 0 0 50px rgba(0,0,0,.35)}
-    .roll.l{left:-20px;animation:rollOutL 1s ease 200ms forwards}
-    .roll.r{right:-20px;animation:rollOutR 1s ease 200ms forwards}
-    .titleIntro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;letter-spacing:.5px;opacity:0;animation:introFade 900ms ease 300ms forwards}
-    .titleIntro .t1{font-size:clamp(22px,3vw,34px);font-weight:900}
-    .titleIntro .t2{opacity:.9;margin-top:6px}
-    .skip{position:absolute;right:16px;bottom:16px;opacity:.75;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;padding:8px 12px;border-radius:10px;cursor:pointer}
-    @keyframes unfold{0%{transform:scaleY(0.05) rotateX(35deg)}60%{transform:scaleY(1.06) rotateX(0)}100%{transform:scaleY(1) rotateX(0)}}
-    @keyframes rollOutL{0%{transform:translateX(0)}100%{transform:translateX(-140%)}}
-    @keyframes rollOutR{0%{transform:translateX(0)}100%{transform:translateX(140%)}}
-    @keyframes introFade{0%{opacity:0;filter:blur(6px)}100%{opacity:1;filter:none}}
-    .intro.hidden{display:none}
-
-    /* LAYOUT */
-    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;height:100%}
+    /* Layout */
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;height:100%;}
     @media (max-width:980px){.grid{grid-template-columns:1fr;grid-auto-rows:minmax(0,1fr)}}
 
     .mapWrap{position:relative;padding:20px}
     .uiWrap{position:relative;padding:20px}
+
     .panel{height:100%;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:18px;backdrop-filter:blur(6px);box-shadow:0 8px 40px rgba(0,0,0,.35)}
 
-    /* MAP */
+    /* Map SVG scale */
     .map{width:100%;height:100%;display:block}
+
+    /* Markers */
     .mark{filter:drop-shadow(0 0 6px rgba(255,200,60,.25));transition:transform .25s ease, opacity .25s ease}
     .mark circle{fill:#5f4b31;stroke:#c8ad7f;stroke-width:2}
     .mark .glow{opacity:0}
@@ -54,15 +39,16 @@
     .mark:hover{transform:scale(1.02)}
     @keyframes pulse{0%,100%{filter:drop-shadow(0 0 0 rgba(255,200,60,.0))}50%{filter:drop-shadow(0 0 18px rgba(255,200,60,.9))}}
 
-    .xmark{opacity:.25;transition:opacity .35s ease, transform .35s ease}
-    .xmark.ready{opacity:1;animation:xblink 1.1s ease-in-out infinite}
+    /* X marker */
+    .xmark{opacity:.25;transition:opacity .35s ease, transform .35s ease;cursor:not-allowed}
+    .xmark.ready{opacity:1;animation:xblink 1.1s ease-in-out infinite;cursor:pointer}
     @keyframes xblink{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 
-    /* FORM */
+    /* Form */
     .form{display:grid;gap:12px}
     .label{font-size:.9rem;color:#e7e5e4;opacity:.9}
-    .input{appearance:none;width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(20,16,12,.6);color:#fff;outline:none;transition:border .2s ease, box-shadow .2s ease}
-    .input:focus{border-color:#eab308;box-shadow:0 0 0 4px rgba(234,179,8,.18)}
+    .input, select, .checkbox{appearance:none;width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(20,16,12,.6);color:#fff;outline:none;transition:border .2s ease, box-shadow .2s ease}
+    .input:focus, select:focus{border-color:#eab308;box-shadow:0 0 0 4px rgba(234,179,8,.18)}
 
     .cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 18px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#eab308);color:#1a140b;font-weight:800;border:none;cursor:pointer;box-shadow:0 10px 24px rgba(234,179,8,.25), inset 0 -2px 0 rgba(0,0,0,.25);transition:transform .08s ease, filter .2s ease}
     .cta[disabled]{opacity:.4;pointer-events:none}
@@ -75,71 +61,105 @@
 
     .title{font-size:clamp(22px,3.2vw,34px);font-weight:900;letter-spacing:.2px}
     .sub{opacity:.85;margin-top:6px}
-    .badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;font-size:.82rem}
 
-    /* CHEST OVERLAY */
+    .badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;font-size:.82rem;}
+
+    /* Chest overlay */
     .overlay{position:absolute;inset:0;display:none;place-items:center;background:radial-gradient(900px 450px at 50% 50%, rgba(255,225,120,.28), rgba(0,0,0,.7) 60%, rgba(0,0,0,.92) 100%)}
     .overlay.show{display:grid}
+
     .chest{position:relative;width:min(520px,85vw);height:260px}
     .base,.lid{position:absolute;left:0;right:0;margin:auto;width:100%;border-radius:18px;background:#5a3d1c;border:4px solid #2b1e0e;box-shadow:inset 0 -10px 0 rgba(0,0,0,.25), 0 12px 40px rgba(0,0,0,.45)}
     .base{bottom:0;height:56%}
     .lid{top:0;height:54%;transform-origin:bottom center;transform:rotateX(0deg);background:linear-gradient(#6b481f,#4e3518)}
     .lock{position:absolute;left:50%;transform:translateX(-50%);bottom:32%;width:64px;height:64px;border-radius:12px;background:#d1a349;border:4px solid #604412;box-shadow:inset 0 8px 0 rgba(255,255,255,.2), 0 4px 0 rgba(0,0,0,.35)}
+
     .shine{position:absolute;inset:0;opacity:0;pointer-events:none;mix-blend:screen;background:radial-gradient(ellipse at 50% 0%, rgba(255,250,200,.95), rgba(255,240,150,.4) 35%, rgba(255,200,120,.08) 60%, rgba(0,0,0,0) 70%)}
+
     .msg{margin-top:22px;text-align:center}
     .btnRow{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
     .btnGhost{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer}
 
-    /* COINS */
+    /* Coins */
     .coin{position:absolute;left:50%;bottom:40%;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #ffe59e, #f4bf46 60%, #b27b21 100%);box-shadow:0 0 10px rgba(255,215,80,.7);animation:coin 1.2s ease-out forwards}
     @keyframes coin{0%{transform:translate(-50%,0) scale(0.8);opacity:1}100%{transform:translate(calc(-50% + var(--dx)), -320px) scale(1.1);opacity:0}}
 
     .footer{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:.78rem;opacity:.5}
+
+    /* Mini-game overlays */
+    .mini{position:absolute;inset:0;display:none;place-items:center;background:radial-gradient(900px 450px at 50% 60%, rgba(0,0,0,.55), rgba(0,0,0,.9))}
+    .mini.show{display:grid}
+    .card{width:min(720px,92vw);border-radius:20px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));box-shadow:0 20px 60px rgba(0,0,0,.5);padding:18px}
+    .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.18);cursor:pointer;background:rgba(255,255,255,.04)}
+    .tab.active{background:linear-gradient(135deg,#f59e0b,#eab308);color:#1a140b;border-color:transparent;font-weight:800}
+
+    /* Scratch */
+    .scratchWrap{position:relative;display:grid;place-items:center;padding:14px;border-radius:14px;border:1px dashed rgba(255,255,255,.18);background:rgba(0,0,0,.25)}
+    .scratchBase{position:relative;width:min(560px,86vw);height:220px;border-radius:16px;display:grid;place-items:center;background:radial-gradient(700px 260px at 50% 0%, #2a2218, #0c0a09)}
+    .scratchBase h3{margin:0;font-size:clamp(22px,3vw,32px)}
+    .scratchBase p{margin:6px 0 0;opacity:.9}
+    canvas#scratch{position:absolute;inset:0;width:100%;height:100%;border-radius:16px}
+
+    /* Spin */
+    .spinWrap{display:grid;gap:12px;justify-items:center}
+    .reels{display:grid;grid-template-columns:repeat(3, 1fr);gap:10px}
+    .reel{width:120px;height:140px;border-radius:14px;border:2px solid rgba(255,255,255,.18);background:linear-gradient(180deg,#0f0d0b,#1b1510);display:grid;place-items:center;overflow:hidden;position:relative}
+    .symbols{position:absolute;top:0;left:0;right:0;animation:none}
+    .symbol{height:140px;display:grid;place-items:center;font-size:52px}
+    .spinBtn{margin-top:6px}
+    @keyframes spinY{0%{transform:translateY(0)}100%{transform:translateY(-560px)}}
+
+    .okRow{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="scene">
-      <!-- INTRO UNFOLD -->
-      <div class="intro" id="intro">
-        <div class="introInner">
-          <div class="sheet"></div>
-          <div class="edge left"></div>
-          <div class="edge right"></div>
-          <div class="roll l"></div>
-          <div class="roll r"></div>
-          <div class="titleIntro">
-            <div class="t1">Hazine Haritası Açılıyor…</div>
-            <div class="t2">İşaretleri yak, X’i parlat ve sandığı aç.</div>
-          </div>
-          <button class="skip" id="skip">Geç</button>
-        </div>
-      </div>
-
       <div class="grid">
         <!-- MAP -->
         <div class="mapWrap panel">
           <svg class="map" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ttl">
             <title id="ttl">Eski Hazine Haritası</title>
+            <!-- Parchment texture-ish -->
             <defs>
               <radialGradient id="g1" cx="50%" cy="30%" r="70%">
                 <stop offset="0%" stop-color="#7a5a3a"/>
                 <stop offset="60%" stop-color="#4f3a27"/>
                 <stop offset="100%" stop-color="#2c2219"/>
               </radialGradient>
+              <filter id="rough"><feTurbulence baseFrequency="0.9" numOctaves="2" type="fractalNoise"/><feColorMatrix type="saturate" values="0.2"/><feBlend mode="multiply" in2="SourceGraphic"/></filter>
+              <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2"/><feDisplacementMap in="SourceGraphic" scale="8"/></filter>
               <filter id="strokeGlow" width="200%" height="200%" x="-50%" y="-50%">
                 <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ffd36b" flood-opacity="0.8"/>
               </filter>
             </defs>
             <rect x="0" y="0" width="900" height="560" fill="url(#g1)"/>
+            
+            <!-- Stylized route -->
             <path d="M70,480 C220,420 180,310 290,290 S460,270 520,220 620,150 740,200 810,260 850,340" fill="none" stroke="#c8ad7f" stroke-width="3" stroke-dasharray="10 8" opacity=".65" filter="url(#strokeGlow)"/>
-            <g id="m1" class="mark" transform="translate(240,340)"><circle r="14" /><circle class="glow" r="20" fill="rgba(255,210,90,.3)" /></g>
-            <g id="m2" class="mark" transform="translate(450,260)"><circle r="14" /><circle class="glow" r="20" fill="rgba(255,210,90,.3)" /></g>
-            <g id="m3" class="mark" transform="translate(720,300)"><circle r="14" /><circle class="glow" r="20" fill="rgba(255,210,90,.3)" /></g>
+
+            <!-- Markers 1-3 -->
+            <g id="m1" class="mark" transform="translate(240,340)">
+              <circle r="14" />
+              <circle class="glow" r="20" fill="rgba(255,210,90,.3)" />
+            </g>
+            <g id="m2" class="mark" transform="translate(450,260)">
+              <circle r="14" />
+              <circle class="glow" r="20" fill="rgba(255,210,90,.3)" />
+            </g>
+            <g id="m3" class="mark" transform="translate(720,300)">
+              <circle r="14" />
+              <circle class="glow" r="20" fill="rgba(255,210,90,.3)" />
+            </g>
+
+            <!-- X mark -->
             <g id="xmark" class="xmark" transform="translate(830,360) rotate(-8)">
               <line x1="-16" y1="-16" x2="16" y2="16" stroke="#f5d487" stroke-width="6" stroke-linecap="round"/>
               <line x1="-16" y1="16"  x2="16" y2="-16" stroke="#f5d487" stroke-width="6" stroke-linecap="round"/>
             </g>
+
+            <!-- Subtle compass -->
             <g transform="translate(110,110)">
               <circle r="40" fill="none" stroke="#c8ad7f" stroke-opacity=".4" stroke-width="2"/>
               <text x="0" y="-46" text-anchor="middle" fill="#c8ad7f" opacity=".6" font-size="12">N</text>
@@ -153,8 +173,8 @@
         <!-- UI -->
         <div class="uiWrap panel" id="ui">
           <div class="badge">🧭 Hazine Avı Başladı</div>
-          <div class="title">Harita Açıldı: <span style="color:#facc15">İşaretleri Yak!</span></div>
-          <div class="sub">İsim Soyisim, GSM ve Mail bilgilerini girdikçe haritadaki 3 işaret yanar. Üçü de yandığında <strong>X</strong> parlayacak ve sandığı açabileceksin.</div>
+          <div class="title">İşaretleri Yak, <span style="color:#facc15">Hazineyi Aç!</span></div>
+          <div class="sub">Formu adım adım doldurdukça haritadaki işaretler yanacak. 3 işaret de yandığında <strong>X</strong> parlayacak ve mini oyunu geçtikten sonra sandığı açabileceksin.</div>
 
           <div class="progress" aria-label="İlerleme">
             <div class="dot" id="d1"></div>
@@ -164,31 +184,84 @@
 
           <form id="form" class="form" autocomplete="on" novalidate>
             <div>
-              <label class="label" for="fullName">İsim Soyisim</label>
-              <input id="fullName" class="input" name="name" placeholder="Örn. Ali Veli" minlength="2" required />
+              <label class="label" for="name">Ad / Kullanıcı Adı</label>
+              <input id="name" class="input" placeholder="Örn. Fixbet" required />
             </div>
             <div>
-              <label class="label" for="phone">GSM Numarası</label>
-              <input id="phone" class="input" name="tel" inputmode="tel" placeholder="05xx xxx xx xx" pattern="^[+0-9 ()-]{10,}$" required />
+              <label class="label" for="tg">Telegram Kullanıcı Adı</label>
+              <input id="tg" class="input" placeholder="@kullanici" pattern="^@?[A-Za-z0-9_]{5,}$" required />
             </div>
             <div>
-              <label class="label" for="email">E-posta</label>
-              <input id="email" class="input" name="email" type="email" placeholder="ornek@mail.com" required />
+              <label class="label" for="bot">Bağlanmak İstediğin Bot</label>
+              <select id="bot" required>
+                <option value="" selected disabled>Seçiniz</option>
+                <option value="kazandiran">Kazandıran.bot</option>
+                <option value="fixbet">Fixbet Bot</option>
+                <option value="zbahis">Zbahis Bot</option>
+              </select>
             </div>
             <label style="display:flex;align-items:center;gap:10px;margin-top:4px">
               <input id="kvkk" type="checkbox" aria-label="KVKK onayı" />
               <span class="hint">KVKK aydınlatma metnini okudum, kabul ediyorum.</span>
             </label>
 
-            <button class="cta" id="openBtn" disabled type="submit">💛 Hazineyi Aç!</button>
-            <div class="hint">Butonun aktif olması için üç alanı doğru doldur ve KVKK’yı onayla.</div>
+            <button class="cta" id="openBtn" disabled type="button">🎮 Mini Oyuna Başla</button>
+            <div class="hint">3 işaret yandığında X'e tıkla veya "Mini Oyuna Başla" butonunu kullan.</div>
           </form>
 
           <div class="footer">© 2025 • Hazine Avı Landing • Demo</div>
         </div>
       </div>
 
-      <!-- CHEST OVERLAY -->
+      <!-- Mini-game overlay -->
+      <div class="mini" id="mini">
+        <div class="card">
+          <div class="tabs">
+            <button class="tab active" id="tabScratch">Kazı Kazan</button>
+            <button class="tab" id="tabSpin">Spin</button>
+          </div>
+
+          <!-- SCRATCH CARD -->
+          <div id="panelScratch">
+            <div class="scratchWrap">
+              <div class="scratchBase">
+                <h3>🎁 DENEME BONUSU</h3>
+                <p>Haritanın X noktasını kazı ve bonus mesajını ortaya çıkar.</p>
+                <canvas id="scratch"></canvas>
+              </div>
+              <div class="okRow">
+                <button class="cta" id="scratchOk" disabled>🔓 Sandığı Aç</button>
+                <button class="btnGhost" id="closeMini1">Kapat</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SPIN -->
+          <div id="panelSpin" style="display:none">
+            <div class="spinWrap">
+              <div class="reels">
+                <div class="reel"><div class="symbols" id="sym1">
+                  <div class="symbol">🍒</div><div class="symbol">💎</div><div class="symbol">7️⃣</div><div class="symbol">⭐</div><div class="symbol">🍒</div>
+                </div></div>
+                <div class="reel"><div class="symbols" id="sym2">
+                  <div class="symbol">💎</div><div class="symbol">⭐</div><div class="symbol">7️⃣</div><div class="symbol">🍒</div><div class="symbol">💎</div>
+                </div></div>
+                <div class="reel"><div class="symbols" id="sym3">
+                  <div class="symbol">⭐</div><div class="symbol">7️⃣</div><div class="symbol">💎</div><div class="symbol">🍒</div><div class="symbol">⭐</div>
+                </div></div>
+              </div>
+              <button class="cta spinBtn" id="spinBtn">🎰 Spin</button>
+              <div class="okRow">
+                <button class="cta" id="spinOk" disabled>🔓 Sandığı Aç</button>
+                <button class="btnGhost" id="closeMini2">Kapat</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Chest overlay -->
       <div class="overlay" id="overlay" aria-live="polite">
         <div class="chest" aria-hidden="true">
           <div class="lid" id="lid"></div>
@@ -198,7 +271,7 @@
         </div>
         <div class="msg">
           <div class="title">🎉 Tebrikler! Hazine açıldı</div>
-          <div class="sub">Bonusun hazır. Aşağıdaki butondan bot’a geçebilirsin.</div>
+          <div class="sub">Bonusun hazır. Aşağıdan bot bağlantısını seçebilirsin.</div>
           <div class="btnRow">
             <a class="btnGhost" id="goPrimary" href="#" target="_blank" rel="noopener">Bot’a Git</a>
             <button class="btnGhost" id="closeOverlay">Kapat</button>
@@ -209,88 +282,168 @@
   </div>
 
   <script>
+    // --- Helpers
     const qs = (s, r=document)=>r.querySelector(s);
 
-    // INTRO logic
-    const intro = qs('#intro');
-    const skip  = qs('#skip');
-    function endIntro(){ intro.classList.add('hidden'); try{ window.fbq && fbq('trackCustom','MapUnfolded') }catch(e){} }
-    skip.addEventListener('click', endIntro);
-    setTimeout(endIntro, 1800); // otomatik geç
-
-    // FORM refs
     const form = qs('#form');
-    const fullNameI = qs('#fullName');
-    const phoneI    = qs('#phone');
-    const emailI    = qs('#email');
-    const kvkkC     = qs('#kvkk');
+    const nameI = qs('#name');
+    const tgI   = qs('#tg');
+    const botS  = qs('#bot');
+    const kvkkC = qs('#kvkk');
 
-    const m1 = qs('#m1'), m2 = qs('#m2'), m3 = qs('#m3');
-    const d1 = qs('#d1'), d2 = qs('#d2'), d3 = qs('#d3');
+    const marks = [qs('#m1'), qs('#m2'), qs('#m3')];
+    const dots  = [qs('#d1'), qs('#d2'), qs('#d3')];
     const xmark = qs('#xmark');
     const openBtn = qs('#openBtn');
 
+    const mini = qs('#mini');
     const overlay = qs('#overlay');
     const lid = qs('#lid');
     const shine = qs('#shine');
     const goPrimary = qs('#goPrimary');
     const closeOverlay = qs('#closeOverlay');
 
-    // Validators
-    const vName  = ()=> fullNameI.value.trim().length >= 2;
-    const vPhone = ()=> /^[+0-9 ()-]{10,}$/.test(phoneI.value.trim());
-    const vMail  = ()=> emailI.validity.valid;
-
-    function setLit(el, dot, ok){
-      el.classList.toggle('lit', ok);
-      dot.classList.toggle('on', ok);
-    }
+    // --- Progress logic
+    function validateStep1(){ return nameI.value.trim().length >= 2 }
+    function validateStep2(){ return /^@?[A-Za-z0-9_]{5,}$/.test(tgI.value.trim()) }
+    function validateStep3(){ return !!botS.value && kvkkC.checked }
 
     function updateProgress(){
-      const s1 = vName(), s2 = vPhone(), s3 = vMail();
-      setLit(m1,d1,s1); setLit(m2,d2,s2); setLit(m3,d3,s3);
-      const all = s1 && s2 && s3 && kvkkC.checked;
+      const v1 = validateStep1();
+      const v2 = validateStep2();
+      const v3 = validateStep3();
+
+      [v1,v2,v3].forEach((v,i)=>{
+        marks[i].classList.toggle('lit', v);
+        dots[i].classList.toggle('on', v);
+      });
+
+      const all = v1 && v2 && v3;
       xmark.classList.toggle('ready', all);
       openBtn.disabled = !all;
-      try{
-        if(window.fbq){
-          if(s1 && !d1.dataset.sent){ fbq('trackCustom','Marker1Lit'); d1.dataset.sent=1 }
-          if(s2 && !d2.dataset.sent){ fbq('trackCustom','Marker2Lit'); d2.dataset.sent=1 }
-          if(s3 && !d3.dataset.sent){ fbq('trackCustom','Marker3Lit'); d3.dataset.sent=1 }
-        }
-      }catch(e){}
+
+      try{ if(window.fbq){
+        if(v1 && !dots[0].dataset.sent){ fbq('trackCustom','Marker1Lit'); dots[0].dataset.sent=1 }
+        if(v2 && !dots[1].dataset.sent){ fbq('trackCustom','Marker2Lit'); dots[1].dataset.sent=1 }
+        if(v3 && !dots[2].dataset.sent){ fbq('trackCustom','Marker3Lit'); dots[2].dataset.sent=1 }
+      }}catch(e){}
     }
 
     ['input','change','keyup'].forEach(evt=>{
-      [fullNameI,phoneI,emailI,kvkkC].forEach(el=> el.addEventListener(evt,updateProgress));
+      [nameI,tgI,botS,kvkkC].forEach(el=>el.addEventListener(evt,updateProgress));
     });
     updateProgress();
 
-    // Basic TR phone hint formatting without $-groups
-    phoneI.addEventListener('input', ()=>{
-      let v = phoneI.value.replace(/[^0-9+]/g,'');
-      if(v.startsWith('0') && v.length>1){
-        v = v.replace(/(\\d{4})(\\d{3})(\\d{2})(\\d{2})/, (m,a,b,c,d)=>`${a} ${b} ${c} ${d}`);
-      }
-      phoneI.value = v;
+    // --- Mini game open handlers
+    openBtn.addEventListener('click', ()=> mini.classList.add('show'));
+    xmark.addEventListener('click', ()=>{ if(!openBtn.disabled) mini.classList.add('show') });
+
+    // --- Tabs
+    const tabScratch = qs('#tabScratch');
+    const tabSpin = qs('#tabSpin');
+    const panelScratch = qs('#panelScratch');
+    const panelSpin = qs('#panelSpin');
+    tabScratch.addEventListener('click', ()=>{
+      tabScratch.classList.add('active'); tabSpin.classList.remove('active');
+      panelScratch.style.display='block'; panelSpin.style.display='none';
+    });
+    tabSpin.addEventListener('click', ()=>{
+      tabSpin.classList.add('active'); tabScratch.classList.remove('active');
+      panelSpin.style.display='block'; panelScratch.style.display='none';
     });
 
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      try{ window.fbq && fbq('track','Lead'); }catch(e){}
-      // Bot linkini burada ayarla:
-      goPrimary.href = 'https://t.me/kazandiranbot';
+    // --- Scratch card logic
+    const scratchCanvas = qs('#scratch');
+    const ctx = scratchCanvas.getContext('2d');
+    let scratching = false, cleared = false;
 
+    function resizeCanvas(){
+      const rect = scratchCanvas.getBoundingClientRect();
+      scratchCanvas.width = Math.floor(rect.width * devicePixelRatio);
+      scratchCanvas.height = Math.floor(rect.height * devicePixelRatio);
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+      // cover layer
+      const grd = ctx.createLinearGradient(0,0,rect.width,rect.height);
+      grd.addColorStop(0,'#b9b9b9'); grd.addColorStop(1,'#8a8a8a');
+      ctx.fillStyle = grd; ctx.fillRect(0,0,rect.width,rect.height);
+      ctx.fillStyle = 'rgba(255,255,255,.2)';
+      for(let i=0;i<60;i++){ ctx.fillRect(Math.random()*rect.width, Math.random()*rect.height, 8, 1) }
+      ctx.globalCompositeOperation='destination-out';
+    }
+
+    function scratch(x,y){
+      ctx.beginPath(); ctx.arc(x,y,24,0,Math.PI*2); ctx.fill();
+    }
+
+    function sampleClearRatio(){
+      const rect = scratchCanvas.getBoundingClientRect();
+      const img = ctx.getImageData(0,0,rect.width,rect.height).data;
+      let clearedPx=0;
+      for(let i=3;i<img.length;i+=4){ if(img[i]===0) clearedPx++; }
+      return clearedPx / (img.length/4);
+    }
+
+    function bindScratch(){
+      resizeCanvas();
+      const rect = scratchCanvas.getBoundingClientRect();
+      function loc(e){ const t = e.touches? e.touches[0]: e; const r = scratchCanvas.getBoundingClientRect(); return {x: t.clientX - r.left, y: t.clientY - r.top}; }
+      scratchCanvas.addEventListener('pointerdown', e=>{ scratching=true; const p=loc(e); scratch(p.x,p.y) });
+      scratchCanvas.addEventListener('pointermove', e=>{ if(!scratching) return; const p=loc(e); scratch(p.x,p.y) });
+      window.addEventListener('pointerup', ()=>{ if(!scratching) return; scratching=false; if(!cleared){ const ratio = sampleClearRatio(); if(ratio>0.5){ cleared=true; onScratchDone(); } } });
+      window.addEventListener('resize', resizeCanvas);
+    }
+
+    function onScratchDone(){
+      try{ window.fbq && fbq('trackCustom','ScratchRevealed') }catch(e){}
+      qs('#scratchOk').disabled = false;
+    }
+
+    // init scratch when mini opens first time
+    let scratchInit = false;
+    const miniObserver = new MutationObserver(()=>{
+      if(mini.classList.contains('show') && !scratchInit){ scratchInit=true; bindScratch(); }
+    });
+    miniObserver.observe(mini,{attributes:true});
+
+    // close buttons
+    qs('#closeMini1').addEventListener('click', ()=> mini.classList.remove('show'));
+    qs('#closeMini2').addEventListener('click', ()=> mini.classList.remove('show'));
+
+    // --- Spin logic
+    const sym1 = qs('#sym1'), sym2 = qs('#sym2'), sym3 = qs('#sym3');
+    const spinBtn = qs('#spinBtn');
+    const spinOk = qs('#spinOk');
+
+    function runReel(el, dur){ el.style.animation = `spinY ${dur}ms cubic-bezier(.2,.8,.2,1)`; setTimeout(()=>{ el.style.animation='none'; }, dur); }
+
+    spinBtn.addEventListener('click', ()=>{
+      try{ window.fbq && fbq('trackCustom','SpinStart') }catch(e){}
+      spinBtn.disabled=true; spinOk.disabled=true;
+      runReel(sym1, 1400); runReel(sym2, 1700); runReel(sym3, 2000);
+      setTimeout(()=>{ spinBtn.disabled=false; spinOk.disabled=false; try{ window.fbq && fbq('trackCustom','SpinWin') }catch(e){} }, 2100);
+    });
+
+    // --- Unlock chest from mini-game
+    function openChest(){
+      mini.classList.remove('show');
       overlay.classList.add('show');
-      requestAnimationFrame(()=>{ setTimeout(()=>{ lid.style.transform = 'rotateX(-58deg)'; shine.style.opacity = 1; burstCoins(); }, 180); });
-    });
+      // prepare bot link
+      const map = { 'kazandiran':'https://t.me/kazandiranbot', 'fixbet':'https://t.me/fixbet', 'zbahis':'https://t.me/zbahis' };
+      qs('#goPrimary').href = map[botS.value] || '#';
+      requestAnimationFrame(()=>{ setTimeout(()=>{ qs('#lid').style.transform = 'rotateX(-58deg)'; qs('#shine').style.opacity = 1; burstCoins(); }, 180); });
+    }
 
+    qs('#scratchOk').addEventListener('click', openChest);
+    spinOk.addEventListener('click', openChest);
+
+    // --- Close overlay
     closeOverlay.addEventListener('click', ()=>{
       overlay.classList.remove('show');
       lid.style.transform = 'rotateX(0deg)';
       shine.style.opacity = 0;
     });
 
+    // --- Coin particles
     function burstCoins(){
       const n = 28 + Math.floor(Math.random()*12);
       for(let i=0;i<n;i++){
@@ -302,6 +455,13 @@
         setTimeout(()=>c.remove(), 1300);
       }
     }
+
+    // --- Prefill params
+    const params = new URLSearchParams(location.search);
+    if(params.get('name')) nameI.value = params.get('name');
+    if(params.get('tg'))   tgI.value   = params.get('tg');
+    if(params.get('bot'))  botS.value  = params.get('bot');
+    updateProgress();
   </script>
 
   <!-- META PIXEL PLACEHOLDER
